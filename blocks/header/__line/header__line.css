@@ -1,0 +1,11 @@
+.header__line {
+
+}
+
+@media screen and (max-width: 658px) {
+    .header__line {
+        position: absolute;
+        left: 0;
+        bottom: auto;
+    }
+}
