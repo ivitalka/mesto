@@ -2,5 +2,15 @@
     width: 21px;
     height: 18px;
     background-image: url("../../../images/like.svg");
+    background-size: cover;
     align-self: center;
+    border: none;
+    background-color: #fff;
+    outline: none;
+}
+
+.gallery__like:hover {
+    cursor: pointer;
+    opacity: .6;
+    transition: opacity .5s;
 }

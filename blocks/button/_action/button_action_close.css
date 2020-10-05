@@ -9,6 +9,12 @@
     right: -40px;
 }
 
+.button_action_close:hover {
+    cursor: pointer;
+    opacity: .6;
+    transition: opacity .5s;
+}
+
 @media screen and (max-width: 658px) {
     .button_action_close {
         width: 26px;

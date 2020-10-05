@@ -7,6 +7,12 @@
     margin-left: auto;
 }
 
+.button_action_add:hover {
+    cursor: pointer;
+    opacity: .6;
+    transition: opacity .5s;
+}
+
 @media screen and (max-width: 720px) {
     .button_action_add {
         width: 100%;
