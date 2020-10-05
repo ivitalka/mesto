@@ -1,12 +1,12 @@
 .profile {
     display: flex;
+    flex-wrap: wrap;
     align-items: center;
     padding-top: 40px;
 }
 
 @media screen and (max-width: 520px) {
     .profile {
-        flex-wrap: wrap;
         justify-content: center;
     }
 }
