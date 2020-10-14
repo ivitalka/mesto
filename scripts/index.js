@@ -68,7 +68,15 @@ const getItems = (data) => {
     const card = template.content.cloneNode(true);
     card.querySelector('.gallery__heading').innerText = data.name;
     card.querySelector('.gallery__picture').src = data.link;
+
+    const removeButton = card.querySelector('.button_action_remove');
+
+    removeButton.addEventListener('click', cardRemoveHandler);
     return card;
+};
+
+const cardRemoveHandler = (evt) => {
+    evt.target.closest('.gallery__item').remove();
 };
 
 const formCloseHandler = (evt) => {

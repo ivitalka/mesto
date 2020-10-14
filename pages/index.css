@@ -24,6 +24,7 @@
 @import url(../blocks/button/_action/button_action_add.css);
 @import url(../blocks/button/_action/button_action_submit.css);
 @import url(../blocks/button/_action/button_action_close.css);
+@import url(../blocks/button/_action/button_action_remove.css);
 
 @import url(../blocks/popup/popup.css);
 @import url(../blocks/popup/_opened/popup_opened.css);
