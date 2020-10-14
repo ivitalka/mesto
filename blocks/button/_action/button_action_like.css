@@ -1,6 +1,6 @@
-.gallery__like {
+.button_action_like {
     width: 21px;
-    height: 18px;
+    height: 19px;
     background-image: url("../../../images/like.svg");
     background-size: cover;
     align-self: center;
@@ -9,7 +9,7 @@
     outline: none;
 }
 
-.gallery__like:hover {
+.button_action_like:hover {
     cursor: pointer;
     opacity: .6;
     transition: opacity .5s;

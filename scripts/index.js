@@ -70,13 +70,19 @@ const getItems = (data) => {
     card.querySelector('.gallery__picture').src = data.link;
 
     const removeButton = card.querySelector('.button_action_remove');
+    const likeButton = card.querySelector('.button_action_like');
 
+    likeButton.addEventListener('click', likeHandler);
     removeButton.addEventListener('click', cardRemoveHandler);
     return card;
 };
 
 const cardRemoveHandler = (evt) => {
     evt.target.closest('.gallery__item').remove();
+};
+
+const likeHandler = (evt) => {
+    evt.target.closest('.button_action_like').classList.toggle('button_action_like-active');
 };
 
 const formCloseHandler = (evt) => {
