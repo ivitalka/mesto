@@ -55,31 +55,15 @@ const initialCards = [
 const template = document.querySelector('.template');
 const list = document.querySelector('.gallery__list');
 
-const getItems = (data) => {
-    const card = template.content.cloneNode(true);
-    card.querySelector('.gallery__heading').innerText = data.name;
-    card.querySelector('.gallery__picture').src = data.link;
-    card.querySelector('.gallery__picture').alt = data.alt;
+const openingPopup = (data) => data.classList.add('popup_opened');
+const closingPopup = (data) => data.classList.remove('popup_opened');
 
-    const pictureButton = card.querySelector('.gallery__picture');
-
-
-    const removeButton = card.querySelector('.button_action_remove');
-    const likeButton = card.querySelector('.button_action_like');
-
-    pictureButton.addEventListener('click', fullScreenHandler);
-    likeButton.addEventListener('click', likeHandler);
-    removeButton.addEventListener('click', cardRemoveHandler);
-
-    return card;
+const fillEditPopup = () => {
+    inputName.value = profileName.innerText;
+    inputDescription.value = profileDescription.textContent;
 };
 
-const renderList = () => {
-    const items = initialCards.map(getItems);
-    list.append(...items);
-};
-
-const cardRemoveHandler = (evt) => {
+const removeCardHandler = (evt) => {
     evt.target.closest('.gallery__item').remove();
 };
 const fullScreenHandler = (evt) => {
@@ -88,20 +72,30 @@ const fullScreenHandler = (evt) => {
     fullScreenPictureLink.alt = evt.target.alt;
     fullScreenPictureName.textContent = evt.target.nextElementSibling.textContent;
 };
-
-
-
 const likeHandler = (evt) => {
     evt.target.closest('.button_action_like').classList.toggle('button_action_like-active');
 };
 
-const openingPopup = (data) => data.classList.add('popup_opened');
-const closingPopup = (data) => data.classList.remove('popup_opened');
+const getItem = (data) => {
+    const card = template.content.cloneNode(true);
+    const pictureButton = card.querySelector('.gallery__picture');
+    card.querySelector('.gallery__heading').textContent = data.name;
+    pictureButton.src = data.link;
+    pictureButton.alt = data.alt;
 
+    const removeButton = card.querySelector('.button_action_remove');
+    const likeButton = card.querySelector('.button_action_like');
 
-const fillEditPopup = () => {
-    inputName.value = profileName.innerText;
-    inputDescription.value = profileDescription.innerText;
+    pictureButton.addEventListener('click', fullScreenHandler);
+    likeButton.addEventListener('click', likeHandler);
+    removeButton.addEventListener('click', removeCardHandler);
+
+    return card;
+};
+
+const renderList = () => {
+    const items = initialCards.map(getItem);
+    list.append(...items);
 };
 
 const formEditProfileSubmitHandler = (evt) => {
@@ -112,9 +106,10 @@ const formEditProfileSubmitHandler = (evt) => {
 };
 const formAddCardSubmitHandler = (evt) => {
     evt.preventDefault();
-    const item = getItems( {
+    const item = getItem( {
         name: pictureName.value,
-        link: pictureLink.value
+        link: pictureLink.value,
+        alt: 'Изображение пользователя'
     });
     pictureName.value ='';
     pictureLink.value ='';
