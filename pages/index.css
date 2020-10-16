@@ -27,6 +27,7 @@
 @import url(../blocks/button/_action/button_action_remove.css);
 @import url(../blocks/button/_action/button_action_like.css);
 @import url(../blocks/button/_action/button_action_like-active.css);
+@import url(../blocks/button/_action/button_action_fullscreen.css);
 
 @import url(../blocks/popup/popup.css);
 @import url(../blocks/popup/_action/popup_action_fullscreen.css);

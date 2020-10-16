@@ -3,10 +3,4 @@
     height: 282px;
     object-fit: cover;
     object-position: center;
-    grid-column-start: 1;
-    grid-column-end: 3;
-}
-
-.gallery__picture:hover {
-    cursor: pointer;
 }
