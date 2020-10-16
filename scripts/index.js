@@ -55,8 +55,8 @@ const initialCards = [
 const template = document.querySelector('.template');
 const list = document.querySelector('.gallery__list');
 
-const openingPopup = (data) => data.classList.add('popup_opened');
-const closingPopup = (data) => data.classList.remove('popup_opened');
+const openPopup = (popup) => popup.classList.add('popup_opened');
+const closePopup = (popup) => popup.classList.remove('popup_opened');
 
 const fillEditPopup = () => {
     inputName.value = profileName.innerText;
@@ -66,14 +66,14 @@ const fillEditPopup = () => {
 const removeCardHandler = (evt) => {
     evt.target.closest('.gallery__item').remove();
 };
-const fullScreenHandler = (evt) => {
-    openingPopup(popupFullscreen);
+const getFullScreenHandler = (evt) => {
+    openPopup(popupFullscreen);
     fullScreenPictureLink.src = evt.target.src;
     fullScreenPictureLink.alt = evt.target.alt;
     fullScreenPictureName.textContent = evt.target.nextElementSibling.textContent;
 };
-const likeHandler = (evt) => {
-    evt.target.closest('.button_action_like').classList.toggle('button_action_like-active');
+const pressLikeHandler = (evt) => {
+    evt.target.classList.toggle('button_action_like-active');
 };
 
 const getItem = (data) => {
@@ -86,8 +86,8 @@ const getItem = (data) => {
     const removeButton = card.querySelector('.button_action_remove');
     const likeButton = card.querySelector('.button_action_like');
 
-    pictureButton.addEventListener('click', fullScreenHandler);
-    likeButton.addEventListener('click', likeHandler);
+    pictureButton.addEventListener('click', getFullScreenHandler);
+    likeButton.addEventListener('click', pressLikeHandler);
     removeButton.addEventListener('click', removeCardHandler);
 
     return card;
@@ -98,13 +98,13 @@ const renderList = () => {
     list.append(...items);
 };
 
-const formEditProfileSubmitHandler = (evt) => {
+const submitFormEditProfileHandler = (evt) => {
     evt.preventDefault();
     profileName.textContent = inputName.value;
     profileDescription.textContent = inputDescription.value;
-    closingPopup(popupEditProfile);
+    closePopup(popupEditProfile);
 };
-const formAddCardSubmitHandler = (evt) => {
+const submitFormAddCardHandler = (evt) => {
     evt.preventDefault();
     const item = getItem( {
         name: pictureName.value,
@@ -115,19 +115,19 @@ const formAddCardSubmitHandler = (evt) => {
     pictureLink.value ='';
 
     list.prepend(item);
-    closingPopup(popupAddCard);
+    closePopup(popupAddCard);
 };
 
 renderList();
 
-buttonEditProfile.addEventListener('click',() => openingPopup(popupEditProfile));
+buttonEditProfile.addEventListener('click',() => openPopup(popupEditProfile));
 fillEditPopup();
-buttonClosePopupEditProfile.addEventListener('click', () => closingPopup(popupEditProfile));
+buttonClosePopupEditProfile.addEventListener('click', () => closePopup(popupEditProfile));
 
-buttonCloseFullscreenPopup.addEventListener('click', () => closingPopup(popupFullscreen));
+buttonCloseFullscreenPopup.addEventListener('click', () => closePopup(popupFullscreen));
 
-buttonAddCard.addEventListener('click', () => openingPopup(popupAddCard));
-buttonClosePopupAddCard.addEventListener('click', () => closingPopup(popupAddCard));
+buttonAddCard.addEventListener('click', () => openPopup(popupAddCard));
+buttonClosePopupAddCard.addEventListener('click', () => closePopup(popupAddCard));
 
-formEditProfile.addEventListener('submit', formEditProfileSubmitHandler);
-formAddCard.addEventListener('submit', formAddCardSubmitHandler);
+formEditProfile.addEventListener('submit', submitFormEditProfileHandler);
+formAddCard.addEventListener('submit', submitFormAddCardHandler);
