@@ -1,24 +1,24 @@
 const popupEditProfile = document.querySelector('.popup_action_edit');
 const buttonEditProfile = document.querySelector('.button_action_edit');
-const buttonClosePopupEditProfile = document.querySelector('.button_close_edit-form');
+const buttonClosePopupEditProfile = popupEditProfile.querySelector('.button_close_edit-form');
 const formEditProfile = document.querySelector('.popup__form_action_edit');
 const formAddCard = document.querySelector('.popup__form_action_add');
 
 const popupAddCard = document.querySelector('.popup_action_add');
 const buttonAddCard = document.querySelector('.button_action_add');
-const buttonClosePopupAddCard = document.querySelector('.button_close_add-form');
+const buttonClosePopupAddCard = popupAddCard.querySelector('.button_close_add-form');
 
-const inputName = document.querySelector('.popup__input_profile_name');
-const inputDescription = document.querySelector('.popup__input_profile_description');
+const inputName = popupEditProfile.querySelector('.popup__input_profile_name');
+const inputDescription = popupEditProfile.querySelector('.popup__input_profile_description');
 const profileName = document.querySelector('.profile__name');
 const profileDescription = document.querySelector('.profile__description');
 
 const popupFullscreen = document.querySelector('.popup_action_fullscreen');
 const pictureName = formAddCard.querySelector('.popup__input_picture_name');
 const pictureLink = formAddCard.querySelector('.popup__input_picture_link');
-const fullScreenPictureLink = document.querySelector('.figure__picture');
-const fullScreenPictureName = document.querySelector('.figure__caption');
-const buttonCloseFullscreenPopup = document.querySelector('.button_close_fullscreen');
+const fullScreenPictureLink = popupFullscreen.querySelector('.figure__picture');
+const fullScreenPictureName = popupFullscreen.querySelector('.figure__caption');
+const buttonCloseFullscreenPopup = popupFullscreen.querySelector('.button_close_fullscreen');
 
 const initialCards = [
     {
@@ -55,11 +55,6 @@ const initialCards = [
 const template = document.querySelector('.template');
 const list = document.querySelector('.gallery__list');
 
-const renderList = () => {
-    const items = initialCards.map(element => getItems(element));
-    list.append(...items);
-};
-
 const getItems = (data) => {
     const card = template.content.cloneNode(true);
     card.querySelector('.gallery__heading').innerText = data.name;
@@ -77,6 +72,11 @@ const getItems = (data) => {
     removeButton.addEventListener('click', cardRemoveHandler);
 
     return card;
+};
+
+const renderList = () => {
+    const items = initialCards.map(getItems);
+    list.append(...items);
 };
 
 const cardRemoveHandler = (evt) => {
