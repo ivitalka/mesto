@@ -31,23 +31,23 @@
 
         <section class="popup popup_action_edit">
             <div class="popup__container">
-                <button type="button" class="button button_action_close button_close_edit-form"></button>
-                <form class="popup__form popup__form_action_edit" method="post" name="edit-form">
+                <button type="button" class="button button_action_close"></button>
+                <form class="popup__form popup__form_action_edit" method="post" name="editForm" novalidate>
                     <h2 class="popup__heading">Редактировать профиль</h2>
                     <input class="popup__input popup__input_profile_name" type="text" name="name" value="">
                     <input class="popup__input popup__input_profile_description" type="text" name="description" value="">
-                    <button type="submit" class="button button_action_submit">Сохранить</button>
+                    <button type="submit" disabled class="button button_action_submit button_disabled">Сохранить</button>
                 </form>
             </div>
         </section>
 
         <section class="popup popup_action_add">
             <div class="popup__container">
-                <button type="button" class="button button_action_close button_close_add-form"></button>
-                <form class="popup__form popup__form_action_add" method="post" name="add-form">
+                <button type="button" class="button button_action_close"></button>
+                <form class="popup__form popup__form_action_add" method="post" name="addForm">
                     <h2 class="popup__heading">Новое место</h2>
-                    <input class="popup__input popup__input_picture_name" placeholder="Название" type="text" name="picture-name" value="">
-                    <input class="popup__input popup__input_picture_link" placeholder="Ссылка на картинку" type="text" name="picture-link" value="">
+                    <input class="popup__input popup__input_picture_name" placeholder="Название" type="text" name="pictureName" value="">
+                    <input class="popup__input popup__input_picture_link" placeholder="Ссылка на картинку" type="text" name="pictureLink" value="">
                     <button type="submit" class="button button_action_submit">Сохранить</button>
                 </form>
             </div>
@@ -55,7 +55,7 @@
 
         <section class="popup popup_action_fullscreen">
             <div class="popup__container">
-                <button type="button" class="button button_action_close button_close_fullscreen"></button>
+                <button type="button" class="button button_action_close"></button>
                 <figure class="figure">
                     <img class="figure__picture" src="" alt="">
                     <figcaption class="figure__caption"></figcaption>

@@ -1,5 +1,6 @@
 .button_action_submit {
     border: none;
+    border-radius: 2px;
     width: 358px;
     height: 50px;
     margin-top: 10px;

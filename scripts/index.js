@@ -1,12 +1,12 @@
 const popupEditProfile = document.querySelector('.popup_action_edit');
 const buttonEditProfile = document.querySelector('.button_action_edit');
-const buttonClosePopupEditProfile = popupEditProfile.querySelector('.button_close_edit-form');
+const buttonClosePopupEditProfile = popupEditProfile.querySelector('.button_action_close');
 const formEditProfile = document.querySelector('.popup__form_action_edit');
 const formAddCard = document.querySelector('.popup__form_action_add');
 
 const popupAddCard = document.querySelector('.popup_action_add');
 const buttonAddCard = document.querySelector('.button_action_add');
-const buttonClosePopupAddCard = popupAddCard.querySelector('.button_close_add-form');
+const buttonClosePopupAddCard = popupAddCard.querySelector('.button_action_close');
 
 const inputName = popupEditProfile.querySelector('.popup__input_profile_name');
 const inputDescription = popupEditProfile.querySelector('.popup__input_profile_description');
@@ -18,7 +18,7 @@ const pictureName = formAddCard.querySelector('.popup__input_picture_name');
 const pictureLink = formAddCard.querySelector('.popup__input_picture_link');
 const fullScreenPictureLink = popupFullscreen.querySelector('.figure__picture');
 const fullScreenPictureName = popupFullscreen.querySelector('.figure__caption');
-const buttonCloseFullscreenPopup = popupFullscreen.querySelector('.button_close_fullscreen');
+const buttonCloseFullscreenPopup = popupFullscreen.querySelector('.button_action_close');
 
 const initialCards = [
     {
@@ -55,8 +55,8 @@ const initialCards = [
 const template = document.querySelector('.template');
 const list = document.querySelector('.gallery__list');
 
-const openPopup = (popup) => popup.classList.add('popup_opened');
-const closePopup = (popup) => popup.classList.remove('popup_opened');
+const togglePopup = (popup) => popup.classList.toggle('popup_opened');
+
 
 const fillEditPopup = () => {
     inputName.value = profileName.innerText;
@@ -67,10 +67,10 @@ const removeCardHandler = (evt) => {
     evt.target.closest('.gallery__item').remove();
 };
 const getFullScreenHandler = (evt) => {
-    openPopup(popupFullscreen);
+    togglePopup(popupFullscreen);
     fullScreenPictureLink.src = evt.target.src;
     fullScreenPictureLink.alt = evt.target.alt;
-    fullScreenPictureName.textContent = evt.target.nextElementSibling.textContent;
+    fullScreenPictureName.textContent = evt.target.closest('.gallery__item').textContent;
 };
 const pressLikeHandler = (evt) => {
     evt.target.classList.toggle('button_action_like-active');
@@ -102,7 +102,7 @@ const submitFormEditProfileHandler = (evt) => {
     evt.preventDefault();
     profileName.textContent = inputName.value;
     profileDescription.textContent = inputDescription.value;
-    closePopup(popupEditProfile);
+    togglePopup(popupEditProfile);
 };
 const submitFormAddCardHandler = (evt) => {
     evt.preventDefault();
@@ -111,23 +111,21 @@ const submitFormAddCardHandler = (evt) => {
         link: pictureLink.value,
         alt: 'Изображение пользователя'
     });
-    pictureName.value ='';
-    pictureLink.value ='';
-
     list.prepend(item);
-    closePopup(popupAddCard);
+    togglePopup(popupAddCard);
+    formAddCard.reset();
 };
 
 renderList();
 
-buttonEditProfile.addEventListener('click',() => openPopup(popupEditProfile));
+buttonEditProfile.addEventListener('click',() => togglePopup(popupEditProfile));
 fillEditPopup();
-buttonClosePopupEditProfile.addEventListener('click', () => closePopup(popupEditProfile));
+buttonClosePopupEditProfile.addEventListener('click', () => togglePopup(popupEditProfile));
 
-buttonCloseFullscreenPopup.addEventListener('click', () => closePopup(popupFullscreen));
+buttonCloseFullscreenPopup.addEventListener('click', () => togglePopup(popupFullscreen));
 
-buttonAddCard.addEventListener('click', () => openPopup(popupAddCard));
-buttonClosePopupAddCard.addEventListener('click', () => closePopup(popupAddCard));
+buttonAddCard.addEventListener('click', () => togglePopup(popupAddCard));
+buttonClosePopupAddCard.addEventListener('click', () => togglePopup(popupAddCard));
 
 formEditProfile.addEventListener('submit', submitFormEditProfileHandler);
 formAddCard.addEventListener('submit', submitFormAddCardHandler);
