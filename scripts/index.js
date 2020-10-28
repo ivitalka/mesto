@@ -20,6 +20,7 @@ const fullScreenPictureLink = popupFullscreen.querySelector('.figure__picture');
 const fullScreenPictureName = popupFullscreen.querySelector('.figure__caption');
 const buttonCloseFullscreenPopup = popupFullscreen.querySelector('.button_action_close');
 
+
 const initialCards = [
     {
         name: 'Архыз',
@@ -55,7 +56,66 @@ const initialCards = [
 const template = document.querySelector('.template');
 const list = document.querySelector('.gallery__list');
 
-const togglePopup = (popup) => popup.classList.toggle('popup_opened');
+const modals = document.querySelectorAll('.popup');
+
+const resetErrors = (popup) => {
+    const spans = popup.querySelectorAll('.error');
+    spans.forEach(function (span) {
+        span.classList.remove('error_active');
+    });
+    const inputs = popup.querySelectorAll('.popup__input');
+    inputs.forEach(function (input) {
+        input.classList.remove('popup__input_state_invalid')
+    });
+};
+const activateSubmitButton = (popup) => {
+    if(popup === popupEditProfile){
+        const submitButton = popup.querySelector('.button_action_submit');
+        submitButton.classList.remove('button_disabled');
+        submitButton.disabled = false;
+    }
+};
+
+const openPopup = (popup) => {
+    popup.classList.add('popup_opened');
+    resetErrors(popup);
+    activateSubmitButton(popup);
+    document.addEventListener('keydown', closePopupFromKey);
+    closePopupFromOverlay();
+};
+
+const closePopup = (popup) => {
+    popup.classList.remove('popup_opened');
+};
+
+
+const closePopupFromOverlay = () => {
+    modals.forEach(function (modal) {
+        modal.addEventListener('click', function (evt) {
+            if(evt.target.classList.contains('popup_opened')) {
+                closePopup(modal);
+            }
+        });
+    })
+};
+
+
+const closePopupFromKey = (evt) => {
+    if (evt.key === 'Escape') {
+        modals.forEach(function (modal) {
+            modal.classList.remove('popup_opened');
+
+            document.removeEventListener('keydown', closePopupFromKey);
+        })
+    }
+
+};
+
+// const togglePopup = (popup) => {
+//     popup.classList.toggle('popup_opened');
+//     resetErrors(popup);
+//     activateSubmitButton(popup);
+// };
 
 
 const fillEditPopup = () => {
@@ -67,7 +127,7 @@ const removeCardHandler = (evt) => {
     evt.target.closest('.gallery__item').remove();
 };
 const getFullScreenHandler = (evt) => {
-    togglePopup(popupFullscreen);
+    openPopup(popupFullscreen);
     fullScreenPictureLink.src = evt.target.src;
     fullScreenPictureLink.alt = evt.target.alt;
     fullScreenPictureName.textContent = evt.target.closest('.gallery__item').textContent;
@@ -102,7 +162,7 @@ const submitFormEditProfileHandler = (evt) => {
     evt.preventDefault();
     profileName.textContent = inputName.value;
     profileDescription.textContent = inputDescription.value;
-    togglePopup(popupEditProfile);
+    closePopup(popupEditProfile);
 };
 const submitFormAddCardHandler = (evt) => {
     evt.preventDefault();
@@ -112,20 +172,24 @@ const submitFormAddCardHandler = (evt) => {
         alt: 'Изображение пользователя'
     });
     list.prepend(item);
-    togglePopup(popupAddCard);
+    closePopup(popupAddCard);
     formAddCard.reset();
 };
 
 renderList();
 
-buttonEditProfile.addEventListener('click',() => togglePopup(popupEditProfile));
-fillEditPopup();
-buttonClosePopupEditProfile.addEventListener('click', () => togglePopup(popupEditProfile));
 
-buttonCloseFullscreenPopup.addEventListener('click', () => togglePopup(popupFullscreen));
 
-buttonAddCard.addEventListener('click', () => togglePopup(popupAddCard));
-buttonClosePopupAddCard.addEventListener('click', () => togglePopup(popupAddCard));
+buttonEditProfile.addEventListener('click',() => openPopup(popupEditProfile));
+buttonEditProfile.addEventListener('click',() => fillEditPopup());
+
+buttonClosePopupEditProfile.addEventListener('click', () => closePopup(popupEditProfile));
+
+buttonCloseFullscreenPopup.addEventListener('click', () => closePopup(popupFullscreen));
+
+buttonAddCard.addEventListener('click', () => openPopup(popupAddCard));
+buttonClosePopupAddCard.addEventListener('click', () => closePopup(popupAddCard));
 
 formEditProfile.addEventListener('submit', submitFormEditProfileHandler);
 formAddCard.addEventListener('submit', submitFormAddCardHandler);
+
