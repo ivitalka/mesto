@@ -76,6 +76,10 @@ const activateSubmitButton = (popup) => {
     }
 };
 
+const closePopup = (popup) => {
+    popup.classList.remove('popup_opened');
+};
+
 const openPopup = (popup) => {
     popup.classList.add('popup_opened');
     resetErrors(popup);
@@ -83,11 +87,6 @@ const openPopup = (popup) => {
     document.addEventListener('keydown', closePopupFromKey);
     closePopupFromOverlay();
 };
-
-const closePopup = (popup) => {
-    popup.classList.remove('popup_opened');
-};
-
 
 const closePopupFromOverlay = () => {
     modals.forEach(function (modal) {
@@ -103,7 +102,7 @@ const closePopupFromOverlay = () => {
 const closePopupFromKey = (evt) => {
     if (evt.key === 'Escape') {
         modals.forEach(function (modal) {
-            modal.classList.remove('popup_opened');
+            closePopup(modal);
 
             document.removeEventListener('keydown', closePopupFromKey);
         })
