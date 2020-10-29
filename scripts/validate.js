@@ -12,12 +12,12 @@ const hideErrorMessage = (input, {inputErrorClass, errorClass}) => {
     error.textContent = '';
 };
 
-const checkInputValidity = (input) => {
+const checkInputValidity = (input, rest) => {
     if(!input.validity.valid){
-        showErrorMessage(input, obj);
+        showErrorMessage(input, rest);
     }
     else {
-        hideErrorMessage(input, obj);
+        hideErrorMessage(input, rest);
     }
 };
 
@@ -32,20 +32,20 @@ const toggleButtonState = (isValid, buttonElement, {inactiveButtonClass}) => {
     }
 };
 
-const setEventListener = (form, {submitButtonSelector, inputSelector}, buttonElement) => {
+const setEventListener = (form,buttonElement, {inputSelector, ...rest}) => {
     const inputs = Array.from(form.querySelectorAll(inputSelector));
     inputs.forEach(function (input) {
         input.addEventListener('input', (evt) => {
-            checkInputValidity(evt.target);
+            checkInputValidity(evt.target, rest);
             const isAllValid = form.checkValidity();
 
-            toggleButtonState(isAllValid, buttonElement, obj);
+            toggleButtonState(isAllValid, buttonElement, rest);
         })
 
     })
 };
 
-const enableValidation = ({formSelector, submitButtonSelector}) => {
+const enableValidation = ({formSelector, submitButtonSelector, ...rest}) => {
     const forms = Array.from(document.querySelectorAll(formSelector));
     forms.forEach(function (form) {
         form.addEventListener('submit', (evt) => {
@@ -53,8 +53,8 @@ const enableValidation = ({formSelector, submitButtonSelector}) => {
         });
         const buttonElement = form.querySelector(submitButtonSelector);
 
-        setEventListener(form, obj, buttonElement);
-        toggleButtonState(form.checkValidity() ,buttonElement, obj);
+        setEventListener(form, buttonElement, rest);
+        toggleButtonState(form.checkValidity() ,buttonElement, rest);
     })
 };
 
