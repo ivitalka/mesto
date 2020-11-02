@@ -83,6 +83,14 @@ const setStateSubmitButton = (popup) => {
     }
 };
 
+const closePopupFromKey = (evt) => {
+    if (evt.key === 'Escape') {
+        const modal = document.querySelector('.popup_opened');
+        closePopup(modal);
+    }
+
+};
+
 const closePopup = (popup) => {
     popup.classList.remove('popup_opened');
     document.removeEventListener('keydown', closePopupFromKey);
@@ -105,13 +113,7 @@ const closePopupFromOverlay = () => {
 };
 
 
-const closePopupFromKey = (evt) => {
-    if (evt.key === 'Escape') {
-        const modal = document.querySelector('.popup_opened');
-        closePopup(modal);
-    }
 
-};
 
 // const togglePopup = (popup) => {
 //     popup.classList.toggle('popup_opened');
