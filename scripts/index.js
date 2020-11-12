@@ -1,3 +1,8 @@
+import {initialCards} from "./constants.js";
+import {openPopup} from "./utils.js";
+import {Card} from "./Card.js";
+import {FormValidator} from "./FormValidator.js";
+
 const popupEditProfile = document.querySelector('.popup_action_edit');
 const buttonEditProfile = document.querySelector('.button_action_edit');
 const buttonClosePopupEditProfile = popupEditProfile.querySelector('.button_action_close');
@@ -13,46 +18,20 @@ const inputDescription = popupEditProfile.querySelector('.popup__input_profile_d
 const profileName = document.querySelector('.profile__name');
 const profileDescription = document.querySelector('.profile__description');
 
-const popupFullscreen = document.querySelector('.popup_action_fullscreen');
 const pictureName = formAddCard.querySelector('.popup__input_picture_name');
 const pictureLink = formAddCard.querySelector('.popup__input_picture_link');
-const fullScreenPictureLink = popupFullscreen.querySelector('.figure__picture');
-const fullScreenPictureName = popupFullscreen.querySelector('.figure__caption');
+
 const buttonCloseFullscreenPopup = popupFullscreen.querySelector('.button_action_close');
 
+const obj = {
+    formSelector: '.popup__form',
+    inputSelector: '.popup__input',
+    submitButtonSelector: '.button',
+    inactiveButtonClass: 'button_disabled',
+    inputErrorClass: 'popup__input_state_invalid',
+    errorClass: 'error_active'
+};
 
-const initialCards = [
-    {
-        name: 'Архыз',
-        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg',
-        alt:   'Горы'
-    },
-    {
-        name: 'Челябинская область',
-        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg',
-        alt:   'Озеро в лесу'
-    },
-    {
-        name: 'Иваново',
-        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg',
-        alt:   'Хрущевки в спальном районе'
-    },
-    {
-        name: 'Камчатка',
-        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg',
-        alt:   'Горная вершина'
-    },
-    {
-        name: 'Холмогорский район',
-        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg',
-        alt:   'Железная дорога в лесу'
-    },
-    {
-        name: 'Байкал',
-        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg',
-        alt:   'Скалистый берег озера'
-    }
-];
 const template = document.querySelector('.template');
 const list = document.querySelector('.gallery__list');
 
@@ -68,7 +47,6 @@ const resetErrors = (popup) => {
         input.classList.remove('popup__input_state_invalid')
     });
 };
-
 
 const setStateSubmitButton = (popup) => {
     if(popup === popupEditProfile){
@@ -88,18 +66,11 @@ const closePopupFromKey = (evt) => {
         const modal = document.querySelector('.popup_opened');
         closePopup(modal);
     }
-
 };
 
 const closePopup = (popup) => {
     popup.classList.remove('popup_opened');
     document.removeEventListener('keydown', closePopupFromKey);
-};
-
-const openPopup = (popup) => {
-    popup.classList.add('popup_opened');
-
-    document.addEventListener('keydown', closePopupFromKey);
 };
 
 const closePopupFromOverlay = () => {
@@ -112,49 +83,16 @@ const closePopupFromOverlay = () => {
     })
 };
 
-
-
-
-// const togglePopup = (popup) => {
-//     popup.classList.toggle('popup_opened');
-//     resetErrors(popup);
-//     activateSubmitButton(popup);
-// };
-
-
 const fillEditPopup = () => {
     inputName.value = profileName.innerText;
     inputDescription.value = profileDescription.textContent;
 };
 
-const removeCardHandler = (evt) => {
-    evt.target.closest('.gallery__item').remove();
-};
-const getFullScreenHandler = (evt) => {
-    openPopup(popupFullscreen);
-    fullScreenPictureLink.src = evt.target.src;
-    fullScreenPictureLink.alt = evt.target.alt;
-    fullScreenPictureName.textContent = evt.target.closest('.gallery__item').textContent;
-};
-const pressLikeHandler = (evt) => {
-    evt.target.classList.toggle('button_action_like-active');
-};
-
 const getCard = (data) => {
-    const card = template.content.cloneNode(true);
-    const pictureButton = card.querySelector('.gallery__picture');
-    card.querySelector('.gallery__heading').textContent = data.name;
-    pictureButton.src = data.link;
-    pictureButton.alt = data.alt;
+    const card = new Card(data, template);
+    const cardElement = card.render();
 
-    const removeButton = card.querySelector('.button_action_remove');
-    const likeButton = card.querySelector('.button_action_like');
-
-    pictureButton.addEventListener('click', getFullScreenHandler);
-    likeButton.addEventListener('click', pressLikeHandler);
-    removeButton.addEventListener('click', removeCardHandler);
-
-    return card;
+    return cardElement;
 };
 
 const renderList = () => {
@@ -174,10 +112,17 @@ const submitFormAddCardHandler = (evt) => {
         name: pictureName.value,
         link: pictureLink.value,
         alt: 'Изображение пользователя'
-    });
+    }, template);
     list.prepend(item);
     closePopup(popupAddCard);
 };
+
+const editFormValidator = new FormValidator(obj, formEditProfile);
+editFormValidator.enableValidation();
+
+const addFormValidator = new FormValidator(obj, formAddCard);
+addFormValidator.enableValidation();
+
 
 renderList();
 closePopupFromOverlay();
@@ -204,3 +149,18 @@ buttonClosePopupAddCard.addEventListener('click', () => closePopup(popupAddCard)
 formEditProfile.addEventListener('submit', submitFormEditProfileHandler);
 formAddCard.addEventListener('submit', submitFormAddCardHandler);
 
+// const getFullScreenHandler = (evt) => {
+//     openPopup(popupFullscreen);
+//     fullScreenPictureLink.src = evt.target.src;
+//     fullScreenPictureLink.alt = evt.target.alt;
+//     fullScreenPictureName.textContent = evt.target.closest('.gallery__item').textContent;
+// };
+//
+// const setPictureListeners = () => {
+//     const pictures = Array.from(document.querySelectorAll('.gallery__picture'));
+//     pictures.forEach(function (picture) {
+//         picture.addEventListener('click', getFullScreenHandler);
+//     })
+// };
+
+// setPictureListeners();
