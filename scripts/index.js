@@ -1,4 +1,4 @@
-import {initialCards} from "./constants.js";
+import {initialCards, popupFullscreen} from "./constants.js";
 import {openPopup} from "./utils.js";
 import {Card} from "./Card.js";
 import {FormValidator} from "./FormValidator.js";
@@ -148,19 +148,3 @@ buttonClosePopupAddCard.addEventListener('click', () => closePopup(popupAddCard)
 
 formEditProfile.addEventListener('submit', submitFormEditProfileHandler);
 formAddCard.addEventListener('submit', submitFormAddCardHandler);
-
-// const getFullScreenHandler = (evt) => {
-//     openPopup(popupFullscreen);
-//     fullScreenPictureLink.src = evt.target.src;
-//     fullScreenPictureLink.alt = evt.target.alt;
-//     fullScreenPictureName.textContent = evt.target.closest('.gallery__item').textContent;
-// };
-//
-// const setPictureListeners = () => {
-//     const pictures = Array.from(document.querySelectorAll('.gallery__picture'));
-//     pictures.forEach(function (picture) {
-//         picture.addEventListener('click', getFullScreenHandler);
-//     })
-// };
-
-// setPictureListeners();
