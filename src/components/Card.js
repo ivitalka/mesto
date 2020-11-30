@@ -1,12 +1,10 @@
-import {popupFullscreen, fullScreenPictureLink, fullScreenPictureName} from "./constants.js";
-import {openPopup} from "./utils.js";
-
 export class Card {
-    constructor(data, templateSelector) {
+    constructor(data, templateSelector, {handleCardClick}) {
         this._name = data.name;
         this._link = data.link;
         this._alt = data.alt;
-        this._template = templateSelector;
+        this._template = document.querySelector(templateSelector);
+        this.handleCardClick = handleCardClick;
     }
 
     _getTemplate() {
@@ -25,13 +23,6 @@ export class Card {
 
     }
 
-    _getFullScreenHandler(evt) {
-        openPopup(popupFullscreen);
-        fullScreenPictureLink.src = evt.target.src;
-        fullScreenPictureLink.alt = evt.target.alt;
-        fullScreenPictureName.textContent = evt.target.closest('.gallery__item').textContent;
-    };
-
     _pressLikeHandler(evt) {
         evt.target.classList.toggle('button_action_like-active');
     }
@@ -46,8 +37,9 @@ export class Card {
             .addEventListener('click', this._removeCardHandler);
         this._element.querySelector('.button_action_like')
             .addEventListener('click', this._pressLikeHandler);
+
         this._element.querySelector('.gallery__picture')
-            .addEventListener('click', this._getFullScreenHandler);
+            .addEventListener('click', (evt) => this.handleCardClick(evt));
     }
 }
 

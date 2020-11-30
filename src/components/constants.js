@@ -30,6 +30,11 @@ export const initialCards = [
         alt:   'Скалистый берег озера'
     }
 ];
-export const popupFullscreen = document.querySelector('.popup_action_fullscreen');
-export const fullScreenPictureLink = popupFullscreen.querySelector('.figure__picture');
-export const fullScreenPictureName = popupFullscreen.querySelector('.figure__caption');
+export const obj = {
+    formSelector: '.popup__form',
+    inputSelector: '.popup__input',
+    submitButtonSelector: '.button',
+    inactiveButtonClass: 'button_disabled',
+    inputErrorClass: 'popup__input_state_invalid',
+    errorClass: 'error_active'
+};

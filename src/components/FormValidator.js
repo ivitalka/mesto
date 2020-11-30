@@ -22,6 +22,17 @@ export class FormValidator {
         error.textContent = '';
     };
 
+     resetErrors = () => {
+        const spans = this._form.querySelectorAll('.error');
+        spans.forEach(function (span) {
+            span.classList.remove('error_active');
+        });
+        const inputs = this._form.querySelectorAll('.popup__input');
+        inputs.forEach(function (input) {
+            input.classList.remove('popup__input_state_invalid')
+        });
+    };
+
     _toggleButtonState = (isValid, buttonElement) => {
         if(isValid) {
             buttonElement.disabled = false;
@@ -30,6 +41,19 @@ export class FormValidator {
         else {
             buttonElement.disabled = true;
             buttonElement.classList.add(this._inactiveButtonClass);
+        }
+    };
+
+    setStateSubmitButton = () => {
+        if(this._form.classList.contains('popup__form_action_edit')){
+            const submitButton = this._form.querySelector('.button_action_submit');
+            submitButton.classList.remove('button_disabled');
+            submitButton.disabled = false;
+        }
+        else {
+            const submitButton = this._form.querySelector('.button_action_submit');
+            submitButton.classList.add('button_disabled');
+            submitButton.disabled = true;
         }
     };
 
