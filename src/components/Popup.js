@@ -12,16 +12,6 @@ export class Popup {
        document.removeEventListener('keydown', this._handleEscClose);
     };
 
-    _closePopupFromOverlay = () => {
-    document.forEach(function (modal) {
-        modal.addEventListener('mousedown', function (evt) {
-            if(evt.target.classList.contains('popup_opened')) {
-                closePopup(modal);
-            }
-        });
-    })
-};
-
     _handleEscClose = (evt) => {
         if (evt.key === 'Escape') {
             this.close();
