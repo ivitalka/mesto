@@ -1,4 +1,5 @@
-import {initialCards, obj} from "../components/constants.js";
+import {initialCards, obj, formAddCard, inputDescription, buttonAddCard,
+    buttonEditProfile, formEditProfile, inputName,} from "../components/constants.js";
 import {Card} from "../components/Card.js";
 import {FormValidator} from "../components/FormValidator.js";
 import {Section} from "../components/Section.js";
@@ -7,20 +8,15 @@ import {PopupWithForm} from "../components/PopupWithForm.js";
 import {UserInfo} from "../components/UserInfo.js";
 import './index.css';
 
-const popupEditProfile = document.querySelector('.popup_action_edit');
-const buttonEditProfile = document.querySelector('.button_action_edit');
-const formEditProfile = document.querySelector('.popup__form_action_edit');
-const formAddCard = document.querySelector('.popup__form_action_add');
-
-const buttonAddCard = document.querySelector('.button_action_add');
-
-const inputName = popupEditProfile.querySelector('.popup__input_profile_name');
-const inputDescription = popupEditProfile.querySelector('.popup__input_profile_description');
-
 
 const handleCardClick = (evt) => {
     const modal = new PopupWithImage('.popup_action_fullscreen');
-    modal.open(evt);
+    const picture = {
+        src: evt.target.src,
+        alt: evt.target.alt,
+        caption: evt.target.closest('.gallery__item').textContent
+    };
+    modal.open(picture);
     modal.setEventListeners();
 };
 

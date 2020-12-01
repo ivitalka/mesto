@@ -38,3 +38,12 @@ export const obj = {
     inputErrorClass: 'popup__input_state_invalid',
     errorClass: 'error_active'
 };
+export const popupEditProfile = document.querySelector('.popup_action_edit');
+export const buttonEditProfile = document.querySelector('.button_action_edit');
+export const formEditProfile = document.querySelector('.popup__form_action_edit');
+export const formAddCard = document.querySelector('.popup__form_action_add');
+
+export const buttonAddCard = document.querySelector('.button_action_add');
+
+export const inputName = popupEditProfile.querySelector('.popup__input_profile_name');
+export const inputDescription = popupEditProfile.querySelector('.popup__input_profile_description');

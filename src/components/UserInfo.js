@@ -11,7 +11,7 @@ export class UserInfo {
         return userInfo;
     }
 
-    setUserInfo = () => {
+    setUserInfo() {
         this.name = document.querySelector('.popup__input_profile_name').value;
         this.description = document.querySelector('.popup__input_profile_description').value;
     }
