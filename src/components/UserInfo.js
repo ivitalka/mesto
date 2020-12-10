@@ -1,18 +1,17 @@
 export class UserInfo {
-    constructor({nameSelector, aboutSelector: descriptionSelector}) {
+    constructor({nameSelector, aboutSelector}) {
         this.name = document.querySelector(nameSelector).textContent;
-        this.description = document.querySelector(descriptionSelector).textContent;
+        this.about = document.querySelector(aboutSelector).textContent;
     }
 
     getUserInfo() {
         const userInfo = {};
         userInfo.name = this.name;
-        userInfo.description = this.description;
-        return userInfo;
+        userInfo.about = this.about
     }
 
     setUserInfo() {
         this.name = document.querySelector('.popup__input_profile_name').value;
-        this.description = document.querySelector('.popup__input_profile_description').value;
+        this.about = document.querySelector('.popup__input_profile_about').value;
     }
 }
