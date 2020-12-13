@@ -20,3 +20,4 @@ export const inputAbout = popupEditProfile.querySelector('.popup__input_profile_
 
 export const profileName = document.querySelector('.profile__name');
 export const profileAbout = document.querySelector('.profile__about');
+export const profileAvatar = document.querySelector('.profile__avatar');

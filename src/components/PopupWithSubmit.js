@@ -7,9 +7,10 @@ export class PopupWithSubmit extends Popup{
       this.serverRemoveCard = formCallback;
     }
 
+
     setEventListeners(cardId) {
         this._form.addEventListener('submit',(evt) => {
-            this.serverRemoveCard(evt, cardId);
+            this.serverRemoveCard(evt);
         });
         super.setEventListeners();
 
