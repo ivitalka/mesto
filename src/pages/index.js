@@ -19,7 +19,7 @@ const api = new Api({
 });
 //Получение информации о пользователе с сервера и загрузка изменений
 const profile = new UserInfo({nameSelector: '.profile__name', aboutSelector: '.profile__about'});
-
+//Отрисовка страницы
 Promise.all([api.getProfile(), api.getInitialCards()])
     .then(([userData, initialCards]) => {
         profile.name = userData.name;
@@ -49,21 +49,7 @@ Promise.all([api.getProfile(), api.getInitialCards()])
     .catch((err) => {
         console.log(err);
     });
-// api.getProfile()
-//     .then((data) => {
-//         profile.name = data.name;
-//         profile.about = data.about;
-//         profile.id = data._id;
-//         profile.avatar = data.avatar;
-//     })
-//     .then(() => {
-//         profileName.textContent = profile.name;
-//         profileAbout.textContent = profile.about;
-//         profileAvatar.src = profile.avatar;
-//     })
-//     .catch((err) => {
-//         console.log(err);
-//     });
+
 //Обновление информации профиля
 const submitFormEditProfileHandler = (submitButton, evt) => {
     evt.preventDefault();
@@ -147,28 +133,41 @@ const handleCardClick = (evt) => {
     fullSizePicture.open(picture);
 };
 
-const handleLikeCard = (evt, cardId, profileId, likes) => {
-    if(likes.some(elem => elem._id === profileId) || evt.target.classList.contains('button_action_like-active')) {
-        api.deleteLike(evt, cardId).then((data) => {
-            evt.target.closest('.gallery__item').querySelector('.gallery__like-counter').textContent = data.likes.length;
-            evt.target.classList.remove('button_action_like-active');
-        })
-            .catch((err) => {
-                console.log(err);
-            })
-    }
-    else {
-        api.putLike(evt, cardId)
-            .then((data) => {
-                evt.target.closest('.gallery__item').querySelector('.gallery__like-counter').textContent = data.likes.length;
-                evt.target.classList.add('button_action_like-active');
-            })
-            .catch((err) => {
-                console.log(err);
-            })
-    }
+// const deleteLike = (cardId) => {
+//     api.deleteLike(cardId)
+//         .catch((err) => {
+//         console.log(err);
+//     });
+// };
+// const putLike = (cardId) => {
+//     api.putLike(cardId)
+//         .catch((err) => {
+//         console.log(err);
+//     });
+// };
 
-};
+// const handleLikeCard = (evt, cardId, profileId, likes) => {
+//     if(likes.some(elem => elem._id === profileId) || evt.target.classList.contains('button_action_like-active')) {
+//         api.deleteLike(evt, cardId).then((data) => {
+//             evt.target.closest('.gallery__item').querySelector('.gallery__like-counter').textContent = data.likes.length;
+//             evt.target.classList.remove('button_action_like-active');
+//         })
+//             .catch((err) => {
+//                 console.log(err);
+//             })
+//     }
+//     else {
+//         api.putLike(evt, cardId)
+//             .then((data) => {
+//                 evt.target.closest('.gallery__item').querySelector('.gallery__like-counter').textContent = data.likes.length;
+//                 evt.target.classList.add('button_action_like-active');
+//             })
+//             .catch((err) => {
+//                 console.log(err);
+//             })
+//     }
+//
+// };
 
 const handleDeleteCard = (cardId) => {
     submitPopup.open();
@@ -176,28 +175,8 @@ const handleDeleteCard = (cardId) => {
 };
 
 const createCard = (item) => {
-    return new Card(item, '.template', {handleCardClick, handleLikeCard, handleDeleteCard});
+    return new Card(item, '.template', {handleCardClick, handleDeleteCard, api});
 };
-// api.getInitialCards()
-//     .then((data) => {
-//         const cardList = new Section({
-//             items: data.map((item) => ({
-//                 name: item.name,
-//                 link: item.link,
-//                 likes: item.likes,
-//                 _id: item._id,
-//                 profileId: profile.id,
-//                 ownerId: item.owner._id,
-//             })),
-//             renderer: (item) => {
-//                 const cardElement = createCard(item).render();
-//                 cardList.addItem(cardElement);
-//             }}, '.gallery__list');
-//         cardList.renderer();
-//     })
-//     .catch((err) => {
-//         console.log(err);
-//     });
 
 const submitFormAddCardHandler = (submitButton, evt, {values}) => {
     evt.preventDefault();
