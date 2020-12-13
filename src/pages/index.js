@@ -109,8 +109,9 @@ buttonEditProfile.addEventListener('click',() => {
     editFormValidator.setStateSubmitButton();
 });
 
-const serverRemoveCard = (evt, cardId) => {
+const removeCard = (submitButton, evt, cardId) => {
     evt.preventDefault();
+    submitButton.textContent = 'Удаление...';
     api.removeCard(cardId).then(() => {
         document.getElementById(cardId).remove();
         submitPopup.close();
@@ -118,8 +119,15 @@ const serverRemoveCard = (evt, cardId) => {
         .catch((err) => {
             console.log(err);
         })
+        .finally(() => {
+            submitButton.textContent = 'Да';
+        })
 };
-const submitPopup = new PopupWithSubmit('.popup_action_submit', {formCallback: serverRemoveCard});
+const submitPopup = new PopupWithSubmit('.popup_action_submit', {formCallback: removeCard});
+submitPopup.setEventListeners();
+const handleDeleteCard = (cardId) => {
+    submitPopup.open(cardId);
+};
 
 //Открытие картинки на весь экран
 const fullSizePicture = new PopupWithImage('.popup_action_fullscreen');
@@ -133,46 +141,7 @@ const handleCardClick = (evt) => {
     fullSizePicture.open(picture);
 };
 
-// const deleteLike = (cardId) => {
-//     api.deleteLike(cardId)
-//         .catch((err) => {
-//         console.log(err);
-//     });
-// };
-// const putLike = (cardId) => {
-//     api.putLike(cardId)
-//         .catch((err) => {
-//         console.log(err);
-//     });
-// };
 
-// const handleLikeCard = (evt, cardId, profileId, likes) => {
-//     if(likes.some(elem => elem._id === profileId) || evt.target.classList.contains('button_action_like-active')) {
-//         api.deleteLike(evt, cardId).then((data) => {
-//             evt.target.closest('.gallery__item').querySelector('.gallery__like-counter').textContent = data.likes.length;
-//             evt.target.classList.remove('button_action_like-active');
-//         })
-//             .catch((err) => {
-//                 console.log(err);
-//             })
-//     }
-//     else {
-//         api.putLike(evt, cardId)
-//             .then((data) => {
-//                 evt.target.closest('.gallery__item').querySelector('.gallery__like-counter').textContent = data.likes.length;
-//                 evt.target.classList.add('button_action_like-active');
-//             })
-//             .catch((err) => {
-//                 console.log(err);
-//             })
-//     }
-//
-// };
-
-const handleDeleteCard = (cardId) => {
-    submitPopup.open();
-    submitPopup.setEventListeners();
-};
 
 const createCard = (item) => {
     return new Card(item, '.template', {handleCardClick, handleDeleteCard, api});
@@ -214,7 +183,6 @@ buttonAddCard.addEventListener('click', () => {
     formAddCard.reset();
     addFormValidator.setStateSubmitButton();
 });
-
 
 //Валидация форм
 const updateFormValidator = new FormValidator(obj, formUpdate);

@@ -10,8 +10,6 @@ export class Card {
         this._template = document.querySelector(templateSelector);
         this._likeIndex = data.likes.length;
         this.handleCardClick = handleCardClick;
-        // this.deleteLike = deleteLike;
-        // this.putLike = putLike;
         this.handleDeleteCard = handleDeleteCard;
         this._api = api;
     }
@@ -84,8 +82,7 @@ export class Card {
         this._element
             .querySelector('.button_action_remove')
             .addEventListener('click',() => this.handleDeleteCard(this._id));
-        this._element
-            .querySelector('.button_action_like')
+        this._likeButton
             .addEventListener('click',() => this._setLike(this._id));
 
         this._element.querySelector('.gallery__picture')
