@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mesto</title>
+<link href="main.css" rel="stylesheet"></head>
+<body class="root">
+    <div class="page">
+        <header class="header">
+            <div class="logo header__logo"></div>
+        </header>
+
+        <main class="content">
+            <section class="profile">
+                <button class="button_action_update">
+                    <img src="" alt="Аватар профиля" class="profile__avatar">
+                </button>
+                <div class="profile__info">
+                    <h1 class="profile__name"></h1>
+                    <button type="button" class="button button_action_edit"></button>
+                    <p class="profile__about"></p>
+                </div>
+                <button type="button" class="button button_action_add"></button>
+
+            </section>
+
+            <section class="gallery">
+                <ul class="gallery__list"></ul>
+            </section>
+        </main>
+
+        <section class="popup popup_action_edit">
+            <div class="popup__container">
+                <button type="button" class="button button_action_close"></button>
+                <form class="popup__form popup__form_action_edit" method="post" name="editForm">
+                    <h2 class="popup__heading">Редактировать профиль</h2>
+                    <div class="popup__input-container">
+                        <input class="popup__input popup__input_profile_name" type="text" name="name" id="profile-name" value="" required minlength="2" maxlength="40">
+                        <span id="profile-name-error" class="error"></span>
+                    </div>
+                    <div class="popup__input-container">
+                        <input class="popup__input popup__input_profile_about" type="text" name="about" id="profile-about" value="" required minlength="2" maxlength="200">
+                        <span id="profile-about-error" class="error"></span>
+                    </div>
+                    <button type="submit" class="button button_action_submit">Сохранить</button>
+                </form>
+            </div>
+        </section>
+
+        <section class="popup popup_action_add">
+            <div class="popup__container">
+                <button type="button" class="button button_action_close"></button>
+                <form class="popup__form popup__form_action_add" method="post" name="addForm">
+                    <h2 class="popup__heading">Новое место</h2>
+                    <div class="popup__input-container">
+                        <input class="popup__input popup__input_picture_name" placeholder="Название" type="text" name="pictureName" id="picture-name" value="" required minlength="2" maxlength="30">
+                        <span id="picture-name-error" class="error"></span>
+                    </div>
+                    <div class="popup__input-container">
+                        <input class="popup__input popup__input_picture_link" placeholder="Ссылка на картинку" type="url" name="pictureLink" id="picture-link" value="" required>
+                        <span id="picture-link-error" class="error"></span>
+                    </div>
+                    <button type="submit" class="button button_action_submit">Создать</button>
+                </form>
+            </div>
+        </section>
+
+        <section class="popup popup_action_fullscreen">
+            <div class="popup__container">
+                <button type="button" class="button button_action_close"></button>
+                <figure class="figure">
+                    <img class="figure__picture" src="" alt="">
+                    <figcaption class="figure__caption"></figcaption>
+                </figure>
+            </div>
+        </section>
+
+        <section class="popup popup_action_update">
+            <div class="popup__container">
+                <button type="button" class="button button_action_close"></button>
+                <form class="popup__form popup__form_action_update" method="post" name="updateForm">
+                    <h2 class="popup__heading">Обновить аватар</h2>
+                    <div class="popup__input-container">
+                        <input class="popup__input popup__input_avatar_link" placeholder="Ссылка на аватар" type="url" name="avatar" id="avatar-link" value="" required>
+                        <span id="avatar-link-error" class="error"></span>
+                    </div>
+                    <button type="submit" class="button button_action_submit">Сохранить</button>
+                </form>
+            </div>
+        </section>
+
+        <section class="popup popup_action_submit">
+            <div class="popup__container">
+                <button type="button" class="button button_action_close"></button>
+                <form class="popup__form popup__form_action_submit" method="post" name="submitForm">
+                    <h2 class="popup__heading">Вы уверены?</h2>
+                    <button type="submit" class="button button_action_submit">Да</button>
+                </form>
+            </div>
+        </section>
+
+        <footer class="footer">
+            <p class="footer__copyright">&copy; 2020 Mesto Russia</p>
+        </footer>
+    </div>
+
+<template class="template">
+    <li class="gallery__item" id="">
+        <button type="button" class="button button_action_remove"></button>
+        <img class="gallery__picture" src="" alt="">
+        <h2 class="gallery__heading"></h2>
+        <div class="gallery__container">
+        <button type="button" class="button button_action_like"></button>
+        <p class="gallery__like-counter"></p>
+        </div>
+    </li>
+</template>
+
+<script src="main.js"></script></body>
+</html>
