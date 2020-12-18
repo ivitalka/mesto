@@ -2,7 +2,7 @@
     width: 21px;
     height: 19px;
     background-image: url("../../../images/like.svg");
-    background-size: cover;
+    background-size: contain;
     align-self: center;
     border: none;
     background-color: #fff;

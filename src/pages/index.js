@@ -141,8 +141,6 @@ const handleCardClick = (evt) => {
     fullSizePicture.open(picture);
 };
 
-
-
 const createCard = (item) => {
     return new Card(item, '.template', {handleCardClick, handleDeleteCard, api});
 };
