@@ -1,6 +1,7 @@
 .button_action_like {
     width: 21px;
     height: 19px;
+    margin-top: 15px;
     background-image: url("../../../images/like.svg");
     background-size: contain;
     align-self: center;
